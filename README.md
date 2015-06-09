@@ -14,7 +14,12 @@ This module provides a number of useful extensions and extras when working with 
 
 ## Usage
 
-### Advanced Filter Header
+### Better Grid Field Many Relation Handler
+
+This component fixes a bug in `GridFieldManyRelationHandler` where object are duplicated because relationships on a many_many table have different sort values.
+It also sets the pagination page to 1, when toggling in and out of the "Change relation status" modes
+
+### Grid Field Advanced Filter Header
 
 The `GridfieldAdvancedFilterHeader` component can add custom fields to a gridfield when filtering. The following example allows the user to filter based on a folder selected from a `TreeDropdownField`
 
@@ -57,13 +62,13 @@ The `TreeDropdownField` returns the objects ID. The following method can be used
 	
 ![Advanced Filter Header](docs/en/_images/gridfieldadvancedfilterheader.png)
 
-### Editable Link Columns
+### Grid Field Editable Link Columns
 
 Edit linkable objects directly from the gridfield
 
 ![Editable Link Columns](docs/en/_images/gridfieldeditablelinkcolumns.png)
 
-### Upload File
+### Grid Field Upload File
 
 The `GridFieldUploadFile` component allows files to be uploaded into a selected folder and then added to the gridfields relation list.
 
