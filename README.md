@@ -60,7 +60,7 @@ The `TreeDropdownField` returns the objects ID. The following method can be used
 
 Edit linkable objects directly from the gridfield
 
-![Editable Link Columns](screenshots/editablelinkcolumns.png)
+![Editable Link Columns](docs/en/_images/editablelinkcolumns.png)
 
 ### Upload File
 
