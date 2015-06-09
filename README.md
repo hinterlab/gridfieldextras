@@ -14,7 +14,7 @@ This module provides a number of useful extensions and extras when working with 
 
 ## Usage
 
-### Dropdown gridfield filtering
+### Advanced Filter Header
 
 The `GridfieldAdvancedFilterHeader` component can add custom fields to a gridfield when filtering. The following example allows the user to filter based on a folder selected from a `TreeDropdownField`
 
@@ -54,14 +54,17 @@ The `TreeDropdownField` returns the objects ID. The following method can be used
 			'LookUpField'	=> 'Filename'
 		)
 	));
-
+	
+![Advanced Filter Header](docs/en/_images/gridfieldadvancedfilterheader.png)
 
 ### Editable Link Columns
 
 Edit linkable objects directly from the gridfield
 
-![Editable Link Columns](docs/en/_images/editablelinkcolumns3.png)
+![Editable Link Columns](docs/en/_images/gridfieldeditablelinkcolumns.png)
 
 ### Upload File
 
 The `GridFieldUploadFile` component allows files to be uploaded into a selected folder and then added to the gridfields relation list.
+
+![Upload File](docs/en/_images/gridfielduploadfile.png)
