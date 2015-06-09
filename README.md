@@ -14,9 +14,10 @@ This module provides a number of useful extensions and extras when working with 
 
 ## Usage
 
-#### Dropdown gridfield filtering
+### Dropdown gridfield filtering
 
 The `GridfieldAdvancedFilterHeader` component can add custom fields to a gridfield when filtering. The following example allows the user to filter based on a folder selected from a `TreeDropdownField`
+
 
 	$grid = new GridField(
 		'ExampleGrid',
@@ -35,13 +36,17 @@ The `GridfieldAdvancedFilterHeader` component can add custom fields to a gridfie
 		'Filename'		=> 'Filename'
 	));
 
+
 You can customise what form fields are used on the gridfield to filter specific columns. e.g. 
+
 
 	$filter->setFilterFields(array(
 		'Filename'  => function($record, $column, $grid) { return new TreeDropdownField('Filename', '', 'Folder'); }
 	));
 
+
 The `TreeDropdownField` returns the objects ID. The following method can be used to lookup another field based on the object ID returned by the `TreeDropdownField`
+
 
 	$filter->setIDToFieldMaps(array(
 		'Filename'  => array(
@@ -50,8 +55,11 @@ The `TreeDropdownField` returns the objects ID. The following method can be used
 		)
 	));
 
-#### Editable Link Columns
+
+### Editable Link Columns
+
 Edit linkable objects directly from the gridfield
 
-#### Upload File
+### Upload File
+
 The `GridFieldUploadFile` component allows files to be uploaded into a selected folder and then added to the gridfields relation list.
