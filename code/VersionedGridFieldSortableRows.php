@@ -3,9 +3,12 @@
  *
  * @author  Guy Watson <guy.watson@internetrix.com.au>
  * @package  gridfieldextras
+ * 
+ * This component should be used when versioned objects (stage, live) are being sorted in a model admin. 
+ * The sort order will be updated on both the stage and live tables
  *
  */
-class IRXGridFieldSortableRows extends GridFieldSortableRows {
+class VersionedGridFieldSortableRows extends GridFieldSortableRows {
 	protected $saveToLive;
 	
 	/**

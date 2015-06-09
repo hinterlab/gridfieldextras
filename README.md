@@ -68,3 +68,9 @@ Edit linkable objects directly from the gridfield
 The `GridFieldUploadFile` component allows files to be uploaded into a selected folder and then added to the gridfields relation list.
 
 ![Upload File](docs/en/_images/gridfielduploadfile.png)
+
+### Versioned Grid Field Sortable Rows
+
+The `VersionedGridFieldSortableRows` component allows versioned objects (stage, live) to be sorted in a model admin.
+Both the stage and live tables will be updated. 
+

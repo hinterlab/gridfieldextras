@@ -1,6 +1,6 @@
 <?php
 
-class IRXGridFieldManyRelationHandler extends GridFieldManyRelationHandler{
+class BetterGridFieldManyRelationHandler extends GridFieldManyRelationHandler{
 	
 	protected $exclude;
 	
@@ -35,18 +35,15 @@ class IRXGridFieldManyRelationHandler extends GridFieldManyRelationHandler{
 		$list = new DataList($list->dataClass());
 		$list = $list->setDataQuery($query);
 		if($orgList instanceof ManyManyList) {
-			//jason// fixing duplicated objects which is caused by 'DISTINCT "Page_PageBanners"."Sort"'
-			$OldQuery = $query;
+			
+			//fixing duplicated objects which is caused by 'DISTINCT "Page_Items"."Sort"'
 			$list = new DataList($list->dataClass());
 			$query = $list->dataQuery();
-			//hide drag and drop function
-			$gridField->getConfig()->removeComponentsByType('GridFieldOrderableRows');
-			//pass Sorting variables to new DataList
 			
-// 			$OldSortArray = $OldQuery->query()->getOrderBy();
-// 			unset($OldSortArray['Sort']);
-// 			$query->sort($OldSortArray);
-			//jason//
+			//hide drag and drop function
+			if(class_exists('GridFieldOrderableRows')){
+				$gridField->getConfig()->removeComponentsByType('GridFieldOrderableRows');
+			}
 			
 			$joinTable = $this->cheatManyList->getJoinTable($orgList);
 			$baseClass = ClassInfo::baseDataClass($list->dataClass());
