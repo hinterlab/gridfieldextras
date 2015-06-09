@@ -1,0 +1,55 @@
+/**
+ * GridFieldAdvancedFilterHeader
+ */
+
+div.TreeDropdownField .treedropdownfield-title{
+	color: #000;
+	font-weight: normal;
+}
+
+div.TreeDropdownField .treedropdownfield-title{
+	color: #000;
+	font-weight: normal;
+}
+
+
+.chzn-container .chzn-results .active-result{
+	color: #444444;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.chzn-container .chzn-results .active-result.highlighted{
+	color: #fff;
+}
+
+
+.chzn-container-single .chzn-single span{
+	font-weight: normal;
+}
+
+/**
+ * GridFieldUploadFile
+ */
+
+.ss-gridfield-upload-file {
+	margin-bottom: 8px !important;
+}
+
+.ss-gridfield-upload-file .TreeDropdownField{
+	border: none;
+	box-shadow: none;
+	float: left;
+	margin: 0 4px 0 0;
+	max-width: 416px;
+}
+
+.cms .ss-gridfield-upload-file a.ss-ui-button.ss-ui-action-constructive{
+	margin-top: 2px;
+}
+
+.ss-gridfield-upload-file .field.treedropdown.nolabel.no-change-track .middleColumn{
+	margin-left: 0;
+}
+/**********************************************************************/

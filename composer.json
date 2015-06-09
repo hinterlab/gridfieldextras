@@ -1,0 +1,24 @@
+{
+	"name" : "silverstripe-modules/gridfieldextras",
+	"description" : "Some useful gridfield extensions and extras",
+	"type" : "silverstripe-module",
+	"keywords" : [
+		"silverstripe",
+		"gridfield",
+		"filter",
+		"upload",
+		"linkable"
+	],
+	"authors" : [{
+			"name" : "Guy Watson",
+			"email" : "guy.watson@internetrix.com.au"
+		}
+	],
+	"require" : {
+		"silverstripe/framework" : "~3.1"
+	},
+	"extra" : {
+		"installer-name" : "gridfieldextras"
+	},
+	"minimum-stability" : "dev"
+}

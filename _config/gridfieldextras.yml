@@ -1,0 +1,9 @@
+---
+Name: gridfieldextras
+---
+LeftAndMain:
+  extra_requirements_css:
+    - 'gridfieldextras/css/gridfield-extras.css'
+LinkField:
+  extensions:
+    - 'LinkFieldExtension'
