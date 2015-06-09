@@ -60,6 +60,8 @@ The `TreeDropdownField` returns the objects ID. The following method can be used
 
 Edit linkable objects directly from the gridfield
 
+![Editable Link Columns](screenshots/editablelinkcolumns.png)
+
 ### Upload File
 
 The `GridFieldUploadFile` component allows files to be uploaded into a selected folder and then added to the gridfields relation list.
