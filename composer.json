@@ -7,7 +7,8 @@
 		"gridfield",
 		"filter",
 		"upload",
-		"linkable"
+		"linkable",
+		"sortable"
 	],
 	"authors" : [{
 			"name" : "Guy Watson",
