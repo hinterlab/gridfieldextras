@@ -79,3 +79,7 @@ The `GridFieldUploadFile` component allows files to be uploaded into a selected 
 The `VersionedGridFieldSortableRows` component allows versioned objects (stage, live) to be sorted in a model admin.
 Both the stage and live tables will be updated. 
 
+### GridFieldConfig Fields
+
+Use **GridFieldConfig_ManySortableRecordEditor** and **GridFieldConfig_ManySortableRelationEditor** as GridField config for quick ways to configure a GridField.
+
