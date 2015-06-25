@@ -19,8 +19,6 @@ class GridFieldConfig_ManySortableRelationEditor extends GridFieldConfig {
 		
 		//my custom components
 		$this->addComponent(new GridFieldOrderableRows('Sort'));
-		$this->addComponent(new GridFieldBulkUpload("", array("Title")));
-// 		$this->addComponent(new GridFieldManyRelationHandler());
 		
 		$this->addComponent($filter = new GridFieldFilterHeader());
 		
