@@ -44,6 +44,8 @@ class BetterGridFieldManyRelationHandler extends GridFieldManyRelationHandler{
 			if(class_exists('GridFieldOrderableRows')){
 				$gridField->getConfig()->removeComponentsByType('GridFieldOrderableRows');
 			}
+			// add a column for the filter controls
+			$gridField->getConfig()->addComponent(new GridFieldDummyColumn());
 			
 			$joinTable = $this->cheatManyList->getJoinTable($orgList);
 			$baseClass = ClassInfo::baseDataClass($list->dataClass());
