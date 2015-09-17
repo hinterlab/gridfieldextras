@@ -12,7 +12,7 @@ class GridFieldConfig_ManySortableRelationEditor extends GridFieldConfig {
 		$this->addComponent(new GridFieldAddNewButton('toolbar-header-right'));
 		if ($obj && $obj->ID) {
 		    $this->addComponent(new GridFieldOrderableRows('Sort'));
-			$this->addComponent($bb = new GridFieldManyRelationHandler(true,'toolbar-header-right'));
+			$this->addComponent($bb = new BetterGridFieldManyRelationHandler(true,'toolbar-header-right'));
 			$bb->setButtonTitle('TOGGLE_RELATION', 'Choose existing...');
 		}		
 //		$this->addComponent(new GridFieldAddExistingAutocompleter('toolbar-header-right'));
