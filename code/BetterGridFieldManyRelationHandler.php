@@ -85,5 +85,14 @@ class BetterGridFieldManyRelationHandler extends GridFieldManyRelationHandler{
 		$PaginationState = $gridField->State->GridFieldPaginator;
 		$PaginationState->currentPage = 1;
 	}
+	
+	public function setExclude($exclude){
+		$this->exclude = $exclude;
+		return $this;
+	}
+	
+	public function getExclude(){
+		return $this->exclude;
+	}
 
 }
