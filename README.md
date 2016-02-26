@@ -68,6 +68,12 @@ Edit linkable objects directly from the gridfield
 
 ![Editable Link Columns](docs/en/_images/gridfieldeditablelinkcolumns.png)
 
+### Editable Columns File Attachment Field
+
+Upload a file directly into the has_one relationship inside an editable column
+
+![Editable Columns File Attachment Field](docs/en/_images/editablecolumnsfileattachmentfield.png)
+
 ### Grid Field Upload File
 
 The `GridFieldUploadFile` component allows files to be uploaded into a selected folder and then added to the gridfields relation list.
