@@ -72,6 +72,28 @@ Edit linkable objects directly from the gridfield
 
 Upload a file directly into the has_one relationship inside an editable column
 
+	$roomsConfig = GridFieldConfig::create()
+		->addComponent(new GridFieldButtonRow('before'))
+		->addComponent(new GridFieldToolbarHeader())
+		->addComponent(new GridFieldTitleHeader())
+		->addComponent($editable = new GridFieldEditableColumns())
+		->addComponent(new GridFieldEditButton())
+		->addComponent(new GridFieldDetailForm())
+		->addComponent(new GridFieldDeleteAction())
+		->addComponent(new GridFieldAddNewInlineButton('toolbar-header-right'));
+	
+	$editable->setDisplayFields(array(
+	    'ImageID'  => array('title' => 'Image', 'callback' => function($record, $column, $grid) {
+	    	$uploadField = EditableColumnFileAttachmentField::create($column, '')
+		    	->setTemplate('FileAttachmentField_holder')
+		    	->setMultiple(false)->setView('grid');
+	    	$uploadField->setForm($grid->getForm());
+	        return $uploadField;
+	    }),
+		'Title'		 		=> array('title' => 'Title', 'field' => 'TextField'),
+		'SquareMeters' 		=> array('title' => 'SquareMeters', 'field' => 'TextField')
+	));
+
 ![Editable Columns File Attachment Field](docs/en/_images/editablecolumnsfileattachmentfield.png)
 
 ### Grid Field Upload File
