@@ -16,6 +16,7 @@
 		}
 	],
 	"require" : {
+		"unclecheese/dropzone" : "dev-master",
 		"silverstripe/framework" : "~3.1",
 		"undefinedoffset/sortablegridfield" : "dev-master"
 	},
