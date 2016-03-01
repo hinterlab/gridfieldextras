@@ -96,6 +96,45 @@ Upload a file directly into the has_one relationship inside an editable column
 
 ![Editable Columns File Attachment Field](docs/en/_images/editablecolumnsfileattachmentfield.png)
 
+Or upload a file directly into the has_one relationship of relation object inside an editable column.
+e.g Uploading 3 images would create 3 objects, each with a has_one to the respective file.
+
+	$roomsConfig = GridFieldConfig::create()
+		->addComponent(new GridFieldButtonRow('before'))
+		->addComponent(new GridFieldToolbarHeader())
+		->addComponent(new GridFieldTitleHeader())
+		->addComponent($editable = new GridFieldFAFEditableColumns())		//note the modified version of the editable columns class
+		->addComponent(new GridFieldEditButton())
+		->addComponent(new GridFieldDetailForm())
+		->addComponent(new GridFieldDeleteAction())
+		->addComponent(new GridFieldAddNewInlineButton('toolbar-header-right'));
+		
+	$editable->setDisplayFields(array(
+	    'Slides'  => array('title' => 'Image', 'callback' => function($record, $column, $grid) {
+    		$uploadField = EditableColumnFileAttachmentField::create($column, '')
+	    		->setSaveIntoRelationshipField('ImageID')
+	    		->setTemplate('FileAttachmentField_holder')
+	    		->setMultiple(true)
+	    		->setView('grid');
+    		
+    		if($record->ClassName == 'Room'){
+    			$slides 	 = $record->Slides();
+	    		if($slides->count()){
+	    			$ids = $slides->map('ImageID', 'ImageID')->toArray();
+	    			$uploadField = $uploadField->setValue($ids);
+	    		}
+    		}
+    		 
+    		$uploadField->setForm($grid->getForm());
+    		return $uploadField;
+	    }),
+		'Title'		 		=> array('title' => 'Title', 'field' => 'TextField'),
+		'SquareMeters' 		=> array('title' => 'SquareMeters', 'field' => 'TextField')
+	));
+	
+![Editable Columns File Attachment Field Object](docs/en/_images/editablecolumnsfileattachmentfieldforobject.png)
+
+
 ### Grid Field Upload File
 
 The `GridFieldUploadFile` component allows files to be uploaded into a selected folder and then added to the gridfields relation list.
