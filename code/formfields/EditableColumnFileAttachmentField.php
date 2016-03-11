@@ -15,6 +15,12 @@ class EditableColumnFileAttachmentField extends FileAttachmentField{
 	protected $saveIntoRelationshipField;
 	
 	/**
+	 * The name of the parent relationship
+	 * @var string
+	 */
+	protected $parentRelationshipName;
+	
+	/**
 	 * Sets the name of the field the file is to be saved into
 	 * @param int boolean
 	 * @return  EditableColumnFileAttachmentField
@@ -48,6 +54,15 @@ class EditableColumnFileAttachmentField extends FileAttachmentField{
 	 */
 	public function getSaveIntoRelationshipObject(){
 		return $this->saveIntoRelationshipObject;
+	}
+	
+	public function setParentRelationshipName($parentRelationshipName){
+		$this->parentRelationshipName = $parentRelationshipName;
+		return $this;
+	}
+	
+	public function getParentRelationshipName(){
+		return $this->parentRelationshipName;
 	}
 	
 	/**
@@ -97,6 +112,10 @@ class EditableColumnFileAttachmentField extends FileAttachmentField{
 		return $context->renderWith($this->getFieldHolderTemplates());
 	}
 	
+	public function Field($properties = array()){
+		return $this->FieldHolder($properties);
+	}
+	
 	/**
 	 * Saves the field into a record
 	 * @param  DataObjectInterface $record
@@ -122,8 +141,13 @@ class EditableColumnFileAttachmentField extends FileAttachmentField{
 			$relationClass = $record->getRelationClass($fieldname);
 			$relationshipField = $this->getSaveIntoRelationshipField();
 			
+			$parentRelationshipName = $this->getParentRelationshipName();
+			if(!$parentRelationshipName){
+				$parentRelationshipName = $record->ClassName.'s';
+			}
+			
 			//first delete the relationship objects
-			$deletions = Controller::curr()->getRequest()->postVar('__deletion__'.$record->ClassName.'s');
+			$deletions = Controller::curr()->getRequest()->postVar('__deletion__'.$parentRelationshipName);
 
 			if($deletions) {
 				foreach($deletions as $id) {
