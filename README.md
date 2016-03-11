@@ -116,14 +116,6 @@ e.g Uploading 3 images would create 3 objects, each with a has_one to the respec
 	    		->setTemplate('FileAttachmentField_holder')
 	    		->setMultiple(true)
 	    		->setView('grid');
-    		
-    		if($record->ClassName == 'Room'){
-    			$slides 	 = $record->Slides();
-	    		if($slides->count()){
-	    			$ids = $slides->map('ImageID', 'ImageID')->toArray();
-	    			$uploadField = $uploadField->setValue($ids);
-	    		}
-    		}
     		 
     		$uploadField->setForm($grid->getForm());
     		return $uploadField;
@@ -131,6 +123,13 @@ e.g Uploading 3 images would create 3 objects, each with a has_one to the respec
 		'Title'		 		=> array('title' => 'Title', 'field' => 'TextField'),
 		'SquareMeters' 		=> array('title' => 'SquareMeters', 'field' => 'TextField')
 	));
+	
+	$grid->addDataFields(array('Slides' => function($record){
+		$slides = $record->Slides();
+		if($slides->count()){
+			return $slides->map('ImageID', 'ImageID')->toArray();
+		}
+	}));
 	
 ![Editable Columns File Attachment Field Object](docs/en/_images/editablecolumnsfileattachmentfieldforobject.png)
 
@@ -149,4 +148,3 @@ Both the stage and live tables will be updated.
 ### GridFieldConfig Fields
 
 Use **GridFieldConfig_ManySortableRecordEditor** and **GridFieldConfig_ManySortableRelationEditor** as GridField config for quick ways to configure a GridField.
-
