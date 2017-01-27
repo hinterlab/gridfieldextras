@@ -3,7 +3,7 @@
 	var closestGrid 			= null;
 	
 	$.entwine("ss", function($) {
-		$('.cms-edit-form.CMSPageEditController').entwine({
+		$('.cms-container .cms-edit-form').entwine({
 			onbeforesubmitform: function(){
 				var save = $('.relationhandler-saverel:visible');
 				if(save.length){
@@ -15,7 +15,7 @@
 			onaftersubmitform: function(){
 				if(reloadGrid){
 					var id = closestGrid.attr('id');
-					$('#Form_EditForm_Packages.ss-gridfield').entwine('.').entwine('ss').reload();
+					$('#Form_ItemEditForm.ss-gridfield').entwine('.').entwine('ss').reload();
 					reloadGrid = false;
 				}
 			}
