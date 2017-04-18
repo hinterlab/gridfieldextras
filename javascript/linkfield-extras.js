@@ -10,16 +10,19 @@ jQuery.entwine("linkfield", function($) {
 				formUrlParts = formUrl.split('?'),
 				formUrl = formUrlParts[0],
 				url = formUrl + '/field/' + this.attr('name') + '/LinkFormHTML';
-			
+
+			var editableRow = self.parents('tr:first');
 			var editButton = self.parent().siblings('.col-buttons').find('a.edit-link');
-			if(editButton.length){
+			if(editableRow) {
+				var rowid =  editableRow.attr('data-id');
+				url = formUrl + '/field/Blocks/editableRow/form/' + rowid + '/field/' + this.attr('name') + '/LinkFormHTML';
+			}else if(editButton.length){
 				$(".linkfield-remove-button").hide();
 				url = editButton.prop('href');
 				url = url.slice(0, - 5); //remove "edit"
 				url = url + '/ItemEditForm/field/' + this.attr('data-title').replace(/ /g,'') + '/LinkFormHTML';
 				self.getDialog().data("grid", self.closest(".ss-gridfield"));
 			}
-			
 
 			if(self.val().length){
 				url = url + '?LinkID=' + self.val();
@@ -75,5 +78,28 @@ jQuery.entwine("linkfield", function($) {
 				return false;
 			});
 		}
+	});
+
+	$(".linkfield-remove-button").entwine({
+		onclick: function() {
+			var formUrl = this.parents('form').attr('action'),
+				formUrlParts = formUrl.split('?'),
+				formUrl = formUrlParts[0],
+				url = encodeURI(formUrl) + '/field/' + this.siblings('input:first').prop('name') + '/doRemoveLink';
+
+			var editableRow = this.parents('tr:first');
+			if(editableRow) {
+				var rowid =  editableRow.attr('data-id');
+				url = formUrl + '/field/Blocks/editableRow/form/' + rowid + '/field/' + this.siblings('input:first').prop('name') + '/doRemoveLink';
+			}
+
+			if(typeof formUrlParts[1] !== 'undefined') {
+				url = url + '&' + formUrlParts[1];
+			}
+			var holder = this.parents('.field:first');
+			this.parents('.middleColumn:first').html("<img src='framework/images/network-save.gif' />");
+			holder.load(url);
+			return false;
+		},
 	});
 });
