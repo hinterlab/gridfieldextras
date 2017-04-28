@@ -13,7 +13,7 @@ jQuery.entwine("linkfield", function($) {
 
 			var editableRow = self.parents('tr:first');
 			var editButton = self.parent().siblings('.col-buttons').find('a.edit-link');
-			if(editableRow) {
+			if(editableRow.length) {
 				var rowid =  editableRow.attr('data-id');
 				url = formUrl + '/field/Blocks/editableRow/form/' + rowid + '/field/' + this.attr('name') + '/LinkFormHTML';
 			}else if(editButton.length){
