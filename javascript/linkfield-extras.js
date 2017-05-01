@@ -88,7 +88,7 @@ jQuery.entwine("linkfield", function($) {
 				url = encodeURI(formUrl) + '/field/' + this.siblings('input:first').prop('name') + '/doRemoveLink';
 
 			var editableRow = this.parents('tr:first');
-			if(editableRow) {
+			if(editableRow.length) {
 				var rowid =  editableRow.attr('data-id');
 				url = formUrl + '/field/Blocks/editableRow/form/' + rowid + '/field/' + this.siblings('input:first').prop('name') + '/doRemoveLink';
 			}
