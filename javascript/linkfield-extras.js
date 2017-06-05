@@ -1,22 +1,34 @@
 jQuery.entwine("linkfield", function($) {
 
+	//get link from editable row holder 'data-link' attribute. This is more accurate way.
+	function loadEditableRowLink(inputDOM){
+		var link = inputDOM.closest('.ss-gridfield-editable-row--row').first().prev().find('[data-link]').data('link');
+		
+		//change action handler 'load' to 'form
+		link = link.replace('/load/', '/form/');
+		
+		return link;
+	}
+
 	$("input.link").entwine({
 		onmatch: function() {
 			
 			var self = this;
 			this.setDialog(self.siblings('.linkfield-dialog:first'));
 
-			var formUrl = this.parents('form').attr('action'),
-				formUrlParts = formUrl.split('?'),
+			var formUrl = this.parents('form').attr('action');
+			
+			if(this.attr('name').indexOf('Milkyway_SS_GridFieldUtils_EditableRow_editableRow')){
+				//this field is loaded via Milkyway/EditableRow. Get correct ajax link for it.
+				formUrl = loadEditableRowLink(this);
+			}
+			
+			var	formUrlParts = formUrl.split('?'),
 				formUrl = formUrlParts[0],
 				url = formUrl + '/field/' + this.attr('name') + '/LinkFormHTML';
 
-			var editableRow = self.parents('tr:first');
 			var editButton = self.parent().siblings('.col-buttons').find('a.edit-link');
-			if(editableRow.length) {
-				var rowid =  editableRow.attr('data-id');
-				url = formUrl + '/field/Blocks/editableRow/form/' + rowid + '/field/' + this.attr('name') + '/LinkFormHTML';
-			}else if(editButton.length){
+			if(editButton.length){
 				$(".linkfield-remove-button").hide();
 				url = editButton.prop('href');
 				url = url.slice(0, - 5); //remove "edit"
@@ -83,15 +95,16 @@ jQuery.entwine("linkfield", function($) {
 	$(".linkfield-remove-button").entwine({
 		onclick: function() {
 			var formUrl = this.parents('form').attr('action'),
-				formUrlParts = formUrl.split('?'),
-				formUrl = formUrlParts[0],
-				url = encodeURI(formUrl) + '/field/' + this.siblings('input:first').prop('name') + '/doRemoveLink';
-
-			var editableRow = this.parents('tr:first');
-			if(editableRow.length) {
-				var rowid =  editableRow.attr('data-id');
-				url = formUrl + '/field/Blocks/editableRow/form/' + rowid + '/field/' + this.siblings('input:first').prop('name') + '/doRemoveLink';
+			    thisInput = this.siblings('input:first');
+			    
+			if(thisInput.attr('name').indexOf('Milkyway_SS_GridFieldUtils_EditableRow_editableRow')){
+				//this field is loaded via Milkyway/EditableRow
+				formUrl = loadEditableRowLink(thisInput);
 			}
+			
+			var	formUrlParts = formUrl.split('?'),
+				formUrl = formUrlParts[0],
+				url = encodeURI(formUrl) + '/field/' + thisInput.prop('name') + '/doRemoveLink';
 
 			if(typeof formUrlParts[1] !== 'undefined') {
 				url = url + '&' + formUrlParts[1];
