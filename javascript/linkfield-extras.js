@@ -18,7 +18,7 @@ jQuery.entwine("linkfield", function($) {
 
 			var formUrl = this.parents('form').attr('action');
 			
-			if(this.attr('name').indexOf('Milkyway_SS_GridFieldUtils_EditableRow_editableRow')){
+			if(this.attr('name').indexOf('Milkyway_SS_GridFieldUtils_EditableRow_editableRow') > 0){
 				//this field is loaded via Milkyway/EditableRow. Get correct ajax link for it.
 				formUrl = loadEditableRowLink(this);
 			}
