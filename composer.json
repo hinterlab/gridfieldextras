@@ -16,9 +16,9 @@
 		}
 	],
 	"require" : {
-		"unclecheese/dropzone" : "dev-master",
+		"unclecheese/dropzone" : "^1",
 		"silverstripe/framework" : "~3.1",
-		"undefinedoffset/sortablegridfield" : "dev-master"
+		"undefinedoffset/sortablegridfield" : "^1"
 	},
 	"extra" : {
 		"installer-name" : "gridfieldextras"
