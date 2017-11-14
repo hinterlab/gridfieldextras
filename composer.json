@@ -17,7 +17,7 @@
 	],
 	"require" : {
 		"unclecheese/dropzone" : "^1",
-		"silverstripe/framework" : "~3.1",
+		"silverstripe/framework" : "^3.1",
 		"undefinedoffset/sortablegridfield" : "^1"
 	},
 	"extra" : {
