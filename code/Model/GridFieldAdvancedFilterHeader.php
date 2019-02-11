@@ -7,7 +7,22 @@
  *
  */
 
-class GridFieldAdvancedFilterHeader extends GridFieldFilterHeader implements GridField_URLHandler{
+namespace Internetrix\GridFieldExtras\Model;
+
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
+use SilverStripe\Forms\GridField\GridField_URLHandler;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\FormField;
+use SilverStripe\Forms\Form;
+use SilverStripe\Control\Controller;
+use SilverStripe\View\ArrayData;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\Forms\FieldGroup;
+use SilverStripe\Forms\GridField\GridField_FormAction;
+use SilverStripe\Forms\TextField;
+
+class GridFieldAdvancedFilterHeader extends GridFieldFilterHeader implements GridField_URLHandler {
 	
 	/**
 	 * These are the columns that use a custom field

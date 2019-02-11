@@ -7,6 +7,12 @@
  *
  */
 
+namespace Internetrix\GridFieldExtras\Model;
+
+use SilverStripe\Forms\GridField\GridField_ColumnProvider;
+use SilverStripe\View\ArrayData;
+use SilverStripe\Control\Controller;
+
 class GridFieldDummyColumn implements GridField_ColumnProvider {
 	
 	/**

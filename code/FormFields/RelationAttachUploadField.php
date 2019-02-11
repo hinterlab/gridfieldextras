@@ -7,13 +7,22 @@
  *
  */
 
+namespace Internetrix\GridFieldExtras\Extensions;
+
+use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\ORM\SS_List;
+use SilverStripe\ORM\DataList;
+use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Control\HTTPResponse;
+use SilverStripe\Core\Convert;
+
 class RelationAttachUploadField extends UploadField {
 	
 	protected $list;
 	
-	private static $allowed_actions = array(
+	private static $allowed_actions = [
 		'upload'
-	);
+	];
 	
 	public function __construct($name, $title = null, SS_List $items = null) {
 	
@@ -36,7 +45,7 @@ class RelationAttachUploadField extends UploadField {
 		return $this->list;
 	}
 	
-	public function upload(SS_HTTPRequest $request) {
+	public function upload(HTTPRequest $request) {
 		if($this->isDisabled() || $this->isReadonly() || !$this->canUpload()) {
 			return $this->httpError(403);
 		}
@@ -63,7 +72,7 @@ class RelationAttachUploadField extends UploadField {
 		}
 	
 		// Format response with json
-		$response = new SS_HTTPResponse(Convert::raw2json(array($return)));
+		$response = new HTTPResponse(Convert::raw2json(array($return)));
 		$response->addHeader('Content-Type', 'text/plain');
 		if (!empty($return['error'])) $response->setStatusCode(403);
 		return $response;

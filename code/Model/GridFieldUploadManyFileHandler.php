@@ -7,6 +7,24 @@
  * A custom grid field request handler that allows interacting with form fields when uploading files.
  * 
  */
+
+namespace Internetrix\GridFieldExtras\Model;
+
+use SilverStripe\Control\RequestHandler;
+use SilverStripe\View\Requirements;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Control\HTTPResponse;
+use SilverStripe\Core\Convert;
+use Internetrix\GridFieldExtras\Extensions\RelationAttachUploadField;
+use SilverStripe\Assets\Folder;
+use SilverStripe\Forms\Form;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\View\ArrayData;
+use SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest;
+use SilverStripe\Control\Controller;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridField_URLHandler;
+
 class GridFieldUploadManyFileHandler extends RequestHandler {
 	
 	protected $gridField;
@@ -23,7 +41,7 @@ class GridFieldUploadManyFileHandler extends RequestHandler {
 	
 	/**
 	 *
-	 * @param GridFIeld $gridField
+	 * @param GridField $gridField
 	 * @param GridField_URLHandler $component
 	 * @param Controller $controller
 	 */
@@ -51,7 +69,7 @@ class GridFieldUploadManyFileHandler extends RequestHandler {
 		$form->Fields()->push(LiteralField::create('BackLink', '<a href="'. $form->Backlink .'" class="backlink ss-ui-button cms-panel-link" data-icon="back">Back</a>'));
 		
 		if($this->request->isAjax()){
-			$response = new SS_HTTPResponse(Convert::raw2json(array('Content' => $form->forAjaxTemplate()->getValue())));
+			$response = new HTTPResponse(Convert::raw2json(array('Content' => $form->forAjaxTemplate()->getValue())));
 			$response->addHeader('X-Pjax', 'Content');
 			$response->addHeader('Content-Type', 'text/json');
 			$response->addHeader('X-Title', 'SilverStripe - Upload Files');

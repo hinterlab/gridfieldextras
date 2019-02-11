@@ -7,6 +7,14 @@
  *
  */
 
+namespace Internetrix\GridFieldExtras\Model;
+
+use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
+use Sheadawson\Linkable\Forms\LinkField;
+use InvalidArgumentException;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\ORM\DataObjectInterface;
+
 class GridFieldEditableLinkColumns extends GridFieldEditableColumns {
 	/**
 	 * @var string

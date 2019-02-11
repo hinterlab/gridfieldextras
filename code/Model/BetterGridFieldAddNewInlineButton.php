@@ -1,5 +1,18 @@
 <?php
 
+namespace Internetrix\GridFieldExtras\Model;
+
+use Symbiote\GridFieldExtensions\GridFieldAddNewInlineButton;
+use SilverStripe\View\Requirements;
+use Symbiote\GridFieldExtensions\GridFieldExtensions;
+use Exception;
+use SilverStripe\View\ArrayData;
+use SilverStripe\Forms\GridField\GridField;
+use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\Core\Convert;
+use SilverStripe\Core\Injector\Injector;
+
 class BetterGridFieldAddNewInlineButton extends GridFieldAddNewInlineButton {
 	
 	public function getHTMLFragments($grid) {
@@ -9,7 +22,7 @@ class BetterGridFieldAddNewInlineButton extends GridFieldAddNewInlineButton {
 	
 		$fragment = $this->getFragment();
 	
-		if(!$editable = $grid->getConfig()->getComponentByType('GridFieldEditableColumns')) {
+		if(!$editable = $grid->getConfig()->getComponentByType('Symbiote\GridFieldExtensions\GridFieldEditableColumns')) {
 			throw new Exception('Inline adding requires the editable columns component');
 		}
 	
@@ -19,7 +32,8 @@ class BetterGridFieldAddNewInlineButton extends GridFieldAddNewInlineButton {
 		
 		$list = $grid->getList();
 		if($list) {
-			$record = Object::create($grid->getModelClass());
+			//$record = Object::create($grid->getModelClass());
+            $record = Injector::inst()->create($grid->getModelClass());
 		
 			if($record && $record->hasField('Sort')){
 				Requirements::javascript(GRIDFIELDEXTRAS_DIR.'/javascript/addinlinewithsort.js');
@@ -32,7 +46,7 @@ class BetterGridFieldAddNewInlineButton extends GridFieldAddNewInlineButton {
 		));
 	
 		return array(
-			$fragment => $data->renderWith('GridFieldAddNewInlineButton'),
+			$fragment => $data->renderWith('Symbiote\GridFieldExtensions\GridFieldAddNewInlineButton'),
 			'after'   => $this->getRowTemplate($grid, $editable)
 		);
 	}
@@ -42,7 +56,8 @@ class BetterGridFieldAddNewInlineButton extends GridFieldAddNewInlineButton {
 		$handled = array_keys($editable->getDisplayFields($grid));
 	
 		if($grid->getList()) {
-			$record = Object::create($grid->getModelClass());
+			//$record = Object::create($grid->getModelClass());
+            $record = Injector::inst()->create($grid->getModelClass());
 		} else {
 			$record = null;
 		}
@@ -53,7 +68,7 @@ class BetterGridFieldAddNewInlineButton extends GridFieldAddNewInlineButton {
 			if(in_array($column, $handled)) {
 				$field = $fields->fieldByName($column);
 				$field->setName(sprintf(
-					'%s[%s][{%%=o.num%%}][%s]', $grid->getName(), 'GridFieldAddNewInlineButton', $field->getName()
+					'%s[%s][{%%=o.num%%}][%s]', $grid->getName(), 'Symbiote\GridFieldExtensions\GridFieldAddNewInlineButton', $field->getName()
 				));
 				
 				if($column == 'Sort'){

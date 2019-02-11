@@ -1,5 +1,12 @@
 <?php
 
+namespace Internetrix\GridFieldExtras\Model;
+
+use GridFieldRelationHandler;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\View\ArrayData;
+use SilverStripe\Forms\GridField\GridField;
+
 class BetterGridFieldHasOneRelationHandler extends GridFieldRelationHandler {
 	protected $onObject;
 	protected $relationName;

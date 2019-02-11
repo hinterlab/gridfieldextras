@@ -7,6 +7,21 @@
  * A component which lets the user select an upload folder and then upload a file
  *
  */
+
+namespace Internetrix\GridFieldExtras\Model;
+
+use SilverStripe\Forms\GridField\GridField_HTMLProvider;
+use SilverStripe\Forms\GridField\GridField_URLHandler;
+use SilverStripe\Forms\GridField\GridField;
+use GridFieldUploadManyFileHandler;
+use SilverStripe\View\Requirements;
+use SilverStripe\View\ArrayData;
+use SilverStripe\Control\Controller;
+use SilverStripe\Forms\TreeDropdownField;
+use SilverStripe\Assets\Folder;
+use SilverStripe\Forms\Form;
+use SilverStripe\Forms\FieldList;
+
 class GridFieldUploadFile implements GridField_HTMLProvider, GridField_URLHandler {
 
 	private static $allowed_actions = array(
@@ -97,7 +112,7 @@ class GridFieldUploadFile implements GridField_HTMLProvider, GridField_URLHandle
 		$controller = $grid->getForm()->Controller();
 		$handler 	= GridFieldUploadManyFileHandler::create($grid, $this, $controller, 'upload-file');
 		
-		return $handler->handleRequest($request, DataModel::inst());
+		return $handler->handleRequest($request/*, DataModel::inst()*/);
 	}
 
 	/**
