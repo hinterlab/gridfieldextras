@@ -134,7 +134,7 @@ class GridFieldUploadFile implements GridField_HTMLProvider, GridField_URLHandle
 	}
 	
 	public function uploadForm(GridField $grid, $request = null) {
-		$field 	= TreeDropdownField::create('GridFieldUploadFile[FolderID]', '', 'Folder')->addExtraClass('no-change-track');
+		$field 	= TreeDropdownField::create('GridFieldUploadFile[FolderID]', '', 'SilverStripe\Assets\Folder')->addExtraClass('no-change-track');
 		
 		if($folderName = $this->getFolderName()){
 			$defaultFolder = Folder::find_or_make($folderName);
