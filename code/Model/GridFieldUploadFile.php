@@ -119,7 +119,7 @@ class GridFieldUploadFile implements GridField_HTMLProvider, GridField_URLHandle
 	 * {@inheritDoc}
 	 */
 	public function getHTMLFragments($grid) {
-		Requirements::javascript(GRIDFIELDEXTRAS_DIR . '/javascript/gridfieldextras.js');
+		Requirements::javascript('internetrix/silverstripe-gridfieldextras:client/javascript/gridfieldextras.js');
 
 		$folderField	 = $this->uploadForm($grid)->Fields()->dataFieldByName('GridFieldUploadFile[FolderID]');
 		$data 			 = ArrayData::create(array(
@@ -141,7 +141,7 @@ class GridFieldUploadFile implements GridField_HTMLProvider, GridField_URLHandle
 			$field->setValue($defaultFolder->ID);
 		}
 		
-		$form 	= Form::create($this, null, FieldList::create($field), FieldList::create());
+		$form 	= Form::create($grid, null, FieldList::create($field), FieldList::create());
 		
 		$form->setFormAction($grid->Link('GridFieldUploadFile/form'));
 	
