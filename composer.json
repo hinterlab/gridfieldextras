@@ -1,5 +1,5 @@
 {
-	"name" : "internetrix/silverstripe-gridfieldextras",
+	"name" : "silverstripe-modules/gridfieldextras",
 	"description" : "Some useful gridfield extensions and extras",
 	"type" : "silverstripe-vendormodule",
 	"homepage": "https://gitlab.internetrix.net/silverstripe-modules/gridfieldextras",
