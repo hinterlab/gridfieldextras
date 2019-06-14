@@ -10,10 +10,11 @@
 
 namespace Internetrix\GridFieldExtras\Model;
 
+use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\GridField\GridField_HTMLProvider;
 use SilverStripe\Forms\GridField\GridField_URLHandler;
 use SilverStripe\Forms\GridField\GridField;
-use GridFieldUploadManyFileHandler;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\ArrayData;
 use SilverStripe\Control\Controller;
@@ -23,6 +24,9 @@ use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FieldList;
 
 class GridFieldUploadFile implements GridField_HTMLProvider, GridField_URLHandler {
+
+
+    use Injectable;
 
 	private static $allowed_actions = array(
 		'handleUpload'
@@ -109,9 +113,10 @@ class GridFieldUploadFile implements GridField_HTMLProvider, GridField_URLHandle
 	 * @return GridFieldUploadFileHandler
 	 */
 	public function handleUpload(GridField $grid, $request) {
-		$controller = $grid->getForm()->Controller();
+
+		$controller = $grid->getForm()->getController();
 		$handler 	= GridFieldUploadManyFileHandler::create($grid, $this, $controller, 'upload-file');
-		
+
 		return $handler->handleRequest($request/*, DataModel::inst()*/);
 	}
 
@@ -120,6 +125,7 @@ class GridFieldUploadFile implements GridField_HTMLProvider, GridField_URLHandle
 	 */
 	public function getHTMLFragments($grid) {
 		Requirements::javascript('internetrix/silverstripe-gridfieldextras:client/javascript/gridfieldextras.js');
+		Requirements::css('internetrix/silverstripe-gridfieldextras:client/css/gridfield-extras.css');
 
 		$folderField	 = $this->uploadForm($grid)->Fields()->dataFieldByName('GridFieldUploadFile[FolderID]');
 		$data 			 = ArrayData::create(array(
@@ -134,12 +140,21 @@ class GridFieldUploadFile implements GridField_HTMLProvider, GridField_URLHandle
 	}
 	
 	public function uploadForm(GridField $grid, $request = null) {
-		$field 	= TreeDropdownField::create('GridFieldUploadFile[FolderID]', '', 'SilverStripe\Assets\Folder')->addExtraClass('no-change-track');
-		
+
+		$field 	= TreeDropdownField::create('GridFieldUploadFile[FolderID]', '', Folder::class)
+            ->addExtraClass('no-change-track')
+            ->addExtraClass('form-group');
+
 		if($folderName = $this->getFolderName()){
 			$defaultFolder = Folder::find_or_make($folderName);
 			$field->setValue($defaultFolder->ID);
 		}
+
+        if($folderName = $this->getFolderName()){
+			$defaultFolder = Folder::find_or_make($folderName);
+			$field->setValue($defaultFolder->ID);
+		}
+
 		
 		$form 	= Form::create($grid, null, FieldList::create($field), FieldList::create());
 		
