@@ -10,6 +10,8 @@
 
 namespace Internetrix\GridFieldExtras\Model;
 
+use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\GridField\GridField_HTMLProvider;
 use SilverStripe\Forms\GridField\GridField_URLHandler;
 use SilverStripe\Forms\GridField\GridField;
@@ -23,6 +25,9 @@ use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FieldList;
 
 class GridFieldUploadFile implements GridField_HTMLProvider, GridField_URLHandler {
+
+
+    use Injectable;
 
 	private static $allowed_actions = array(
 		'handleUpload'
@@ -134,12 +139,20 @@ class GridFieldUploadFile implements GridField_HTMLProvider, GridField_URLHandle
 	}
 	
 	public function uploadForm(GridField $grid, $request = null) {
-		$field 	= TreeDropdownField::create('GridFieldUploadFile[FolderID]', '', 'SilverStripe\Assets\Folder')->addExtraClass('no-change-track');
-		
-		if($folderName = $this->getFolderName()){
+//		$field 	= TreeDropdownField::create('GridFieldUploadFile[FolderID]', '', Folder::class)->addExtraClass('no-change-track');
+//
+//		if($folderName = $this->getFolderName()){
+//			$defaultFolder = Folder::find_or_make($folderName);
+//			$field->setValue($defaultFolder->ID);
+//		}
+
+        $field = DropdownField::create('GridFieldUploadFile[FolderID]', '')->setSource(Folder::get()->filter('ParentID', 0))
+            ->setEmptyString('Select from list');
+            		if($folderName = $this->getFolderName()){
 			$defaultFolder = Folder::find_or_make($folderName);
 			$field->setValue($defaultFolder->ID);
 		}
+
 		
 		$form 	= Form::create($grid, null, FieldList::create($field), FieldList::create());
 		
