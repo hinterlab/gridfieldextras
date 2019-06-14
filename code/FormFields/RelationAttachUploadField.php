@@ -9,6 +9,7 @@
 
 namespace Internetrix\GridFieldExtras\Extensions;
 
+use SilverStripe\AssetAdmin\Controller\AssetAdmin;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\ORM\SS_List;
 use SilverStripe\ORM\DataList;
@@ -28,12 +29,12 @@ class RelationAttachUploadField extends UploadField {
 	
 		parent::__construct($name, $title, $items);
 	
-		$this->setConfig('previewMaxWidth', 40);
-		$this->setConfig('previewMaxHeight', 30);
+//		$this->setConfig('previewMaxWidth', 40);
+//		$this->setConfig('previewMaxHeight', 30);
 		$this->addExtraClass('ss-assetuploadfield');
 		$this->removeExtraClass('ss-uploadfield');
-		$this->setTemplate('AssetUploadField');
-		$this->setOverwriteWarning(false);
+		// $this->setTemplate('AssetUploadField');
+//		$this->setOverwriteWarning(false);
 	}
 	
 	public function setList(DataList $list){
@@ -46,36 +47,55 @@ class RelationAttachUploadField extends UploadField {
 	}
 	
 	public function upload(HTTPRequest $request) {
-		if($this->isDisabled() || $this->isReadonly() || !$this->canUpload()) {
-			return $this->httpError(403);
-		}
-	
-		// Protect against CSRF on destructive action
-		$token = $this->getForm()->getSecurityToken();
-		if(!$token->checkRequest($request)) return $this->httpError(400);
-	
-		// Get form details
-		$name = $this->getName();
-		$postVars = $request->postVar($name);
-	
-		// Save the temporary file into a File object
-		$uploadedFiles = $this->extractUploadedFileData($postVars);
-		$firstFile = reset($uploadedFiles);
-		$file = $this->saveTemporaryFile($firstFile, $error);
-		if(empty($file)) {
-			$return = array('error' => $error);
-		} else {
-			if($this->list instanceof DataList){
-				$this->list->add($file);
-			}
-			$return = $this->encodeFileAttributes($file);
-		}
-	
-		// Format response with json
-		$response = new HTTPResponse(Convert::raw2json(array($return)));
-		$response->addHeader('Content-Type', 'text/plain');
-		if (!empty($return['error'])) $response->setStatusCode(403);
-		return $response;
+
+        if ($this->isDisabled() || $this->isReadonly()) {
+            return $this->httpError(403);
+        }
+
+        // CSRF check
+        $token = $this->getForm()->getSecurityToken();
+        if (!$token->checkRequest($request)) {
+            return $this->httpError(400);
+        }
+
+        $tmpFile = $request->postVar('Upload');
+        /** @var File $file */
+        $file = $this->saveTemporaryFile($tmpFile, $error);
+
+        // Prepare result
+        if ($error) {
+            $result = [
+                'message' => [
+                    'type' => 'error',
+                    'value' => $error,
+                ]
+            ];
+            $this->getUpload()->clearErrors();
+            return (new HTTPResponse(json_encode($result), 400))
+                ->addHeader('Content-Type', 'application/json');
+        }
+
+        // We need an ID for getObjectFromData
+        if (!$file->isInDB()) {
+            $file->write();
+        }
+
+        if($this->list instanceof DataList){
+            $this->list->add($file);
+        }
+
+        // Return success response
+        $result = [
+            AssetAdmin::singleton()->getObjectFromData($file)
+        ];
+
+        // Don't discard pre-generated client side canvas thumbnail
+        if ($result[0]['category'] === 'image') {
+            unset($result[0]['thumbnail']);
+        }
+        $this->getUpload()->clearErrors();
+        return (new HTTPResponse(json_encode($result)))
+            ->addHeader('Content-Type', 'application/json');
 	}
 
 }

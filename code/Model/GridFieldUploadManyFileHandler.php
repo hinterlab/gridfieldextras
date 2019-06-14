@@ -11,6 +11,8 @@
 namespace Internetrix\GridFieldExtras\Model;
 
 use SilverStripe\Control\RequestHandler;
+use SilverStripe\Forms\FormAction;
+use SilverStripe\ORM\ValidationResult;
 use SilverStripe\View\Requirements;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Control\HTTPResponse;
@@ -32,7 +34,8 @@ class GridFieldUploadManyFileHandler extends RequestHandler {
 	protected $controller;
 	
 	private static $allowed_actions = array(
-		'uploadManyForm'
+		'uploadManyForm',
+        'doSave'
 	);
 	
 	private static $url_handlers = array(
@@ -52,21 +55,26 @@ class GridFieldUploadManyFileHandler extends RequestHandler {
 		parent::__construct();
 	}
 	
-	public function index($request) {
-		Requirements::javascript(FRAMEWORK_DIR . '/javascript/AssetUploadField.js');
-		Requirements::css(FRAMEWORK_DIR . '/css/AssetUploadField.css');
-		
+	public function index($request)
+    {
 		$controller = $this->getToplevelController();
 		$form 		= $this->uploadManyForm();
-		$form->setTemplate('LeftAndMain_EditForm');
-		$form->addExtraClass('center cms-content');
-		$form->setAttribute('data-pjax-fragment', 'CurrentForm Content');
+		$form->setTemplate([
+            'type' => 'Includes',
+            'SilverStripe\\Admin\\LeftAndMain_EditForm',
+        ]);
+        $form->addExtraClass('cms-content cms-edit-form center fill-height flexbox-area-grow');
+        $form->setAttribute('data-pjax-fragment', 'CurrentForm Content');
+
 		
-		$crumbs 		= $this->Breadcrumbs();
-		$page 			= $crumbs->offsetGet($crumbs->count()-2);
+		$crumbs = $this->Breadcrumbs();
+		$page = $crumbs->offsetGet($crumbs->count()-2);
 		$form->Backlink = $page->Link;
 		
-		$form->Fields()->push(LiteralField::create('BackLink', '<a href="'. $form->Backlink .'" class="backlink ss-ui-button cms-panel-link" data-icon="back">Back</a>'));
+		$form->Actions()->push(
+		    LiteralField::create('BackLink', '<a href="'. $form->Backlink .'" class="btn backlink ss-ui-button cms-panel-link" data-icon="back">Back</a>')
+        );
+		$form->Actions()->push(FormAction::create('doSave', 'Save')->addExtraClass('btn btn-primary'));
 		
 		if($this->request->isAjax()){
 			$response = new HTTPResponse(Convert::raw2json(array('Content' => $form->forAjaxTemplate()->getValue())));
@@ -78,10 +86,35 @@ class GridFieldUploadManyFileHandler extends RequestHandler {
 			return $controller->customise(array( 'Content' => $form));
 		}
 	}
+
+	public function doSave($data, Form $form)
+    {
+
+        if($data['ReplacementFile'] && $data['ReplacementFile']['Files']) {
+            foreach ($data['ReplacementFile']['Files'] as $id) {
+                $this->gridField->getList()->add($id);
+            }
+        }
+
+        $message = 'Saved your file selection';
+        $form->sessionMessage($message, 'good', ValidationResult::CAST_HTML);
+        // Redirect after save
+        return $this->redirectAfterSave();
+    }
+
+    protected function redirectAfterSave()
+    {
+        $controller = $this->getToplevelController();
+        $crumbs = $this->Breadcrumbs();
+        $page = $crumbs->offsetGet($crumbs->count()-2);
+        $controller->getRequest()->addHeader('X-Pjax', 'Content');
+        return $controller->redirect($page->Link, 302);
+    }
 	
-	public function uploadManyForm(){
+	public function uploadManyForm()
+    {
 		$uploadField = RelationAttachUploadField::create('ReplacementFile', '')->setList($this->gridField->getList());
-		$folder 	 = Folder::get()->byID($this->getRequest()->param('FolderID'));
+		$folder = Folder::get()->byID($this->getRequest()->param('FolderID'));
 	
 		if($folder && $folder->exists() && $folder->getFilename()) {
 			$path = preg_replace('/^' . ASSETS_DIR . '\//', '', $folder->getFilename());
