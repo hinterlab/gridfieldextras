@@ -1,4 +1,14 @@
-<?php 
+<?php
+
+namespace Internetrix\GridFieldExtras\Model;
+
+use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\ORM\DataObjectInterface;
+use SilverStripe\Forms\Form;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Control\Controller;
+
 class GridFieldFAFEditableColumns extends GridFieldEditableColumns{
 	
 	/**
@@ -21,6 +31,4 @@ class GridFieldFAFEditableColumns extends GridFieldEditableColumns{
 	
 		return $form;
 	}
-	
 }
-

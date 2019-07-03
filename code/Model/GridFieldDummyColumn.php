@@ -7,8 +7,17 @@
  *
  */
 
+namespace Internetrix\GridFieldExtras\Model;
+
+use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\Forms\GridField\GridField_ColumnProvider;
+use SilverStripe\View\ArrayData;
+use SilverStripe\Control\Controller;
+
 class GridFieldDummyColumn implements GridField_ColumnProvider {
-	
+
+    use Injectable;
+
 	/**
 	 * Add a column
 	 * 

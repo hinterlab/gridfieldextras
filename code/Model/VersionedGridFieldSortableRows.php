@@ -8,6 +8,20 @@
  * The sort order will be updated on both the stage and live tables
  *
  */
+
+namespace Internetrix\GridFieldExtras\Model;
+use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\ORM\UnsavedRelationList;
+use SilverStripe\ORM\ValidationException;
+use SilverStripe\ORM\ManyManyList;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\ClassInfo;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Control\Controller;
+use SilverStripe\Admin\ModelAdmin;
+use SilverStripe\ORM\DB;
+
 class VersionedGridFieldSortableRows extends GridFieldSortableRows {
 	protected $saveToLive;
 	

@@ -1,5 +1,15 @@
 <?php
 
+namespace Internetrix\GridFieldExtras\FormFields;
+
+use FileAttachmentField;
+use SilverStripe\View\Requirements;
+use SilverStripe\Assets\Image;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\ORM\DataObjectInterface;
+use SilverStripe\Control\Controller;
+use SilverStripe\Assets\File;
+
 class EditableColumnFileAttachmentField extends FileAttachmentField{
 	
 	/**
@@ -115,7 +125,7 @@ class EditableColumnFileAttachmentField extends FileAttachmentField{
 	public function Field($properties = array()){
 		return $this->FieldHolder($properties);
 	}
-	
+
 	/**
 	 * Saves the field into a record
 	 * @param  DataObjectInterface $record

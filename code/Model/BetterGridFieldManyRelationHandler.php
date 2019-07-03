@@ -1,6 +1,19 @@
 <?php
 
-class BetterGridFieldManyRelationHandler extends GridFieldManyRelationHandler{
+namespace Internetrix\GridFieldExtras\Model;
+
+use GridFieldManyRelationHandler;
+use GridFieldManyRelationHandler_HasManyList;
+use GridFieldManyRelationHandler_ManyManyList;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\ORM\SS_List;
+use SilverStripe\ORM\RelationList;
+use InvalidArgumentException;
+use SilverStripe\ORM\DataList;
+use SilverStripe\ORM\ManyManyList;
+use Internetrix\GridFieldExtras\GridFieldDummyColumn;
+
+class BetterGridFieldManyRelationHandler extends GridFieldManyRelationHandler {
 	
 	protected $exclude;
 	

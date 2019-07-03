@@ -6,6 +6,6 @@ LeftAndMain:
     - 'gridfieldextras/css/gridfield-extras.css'
   extra_requirements_javascript:
     - 'gridfieldextras/javascript/gridfieldleftandmainextras.js'
-LinkField:
+Sheadawson\Linkable\Forms\LinkField:
   extensions:
-    - 'LinkFieldExtension'
+    - 'Internetrix\GridFieldExtras\Extensions\LinkFieldExtension'
