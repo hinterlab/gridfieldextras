@@ -41,6 +41,9 @@
 			"client"
 		]
 	},
+	"replace": {
+		"silverstripe-modules/gridfieldextras": "self.version"
+	},
 	"autoload": {
 		"psr-4": {
 			"Internetrix\\GridFieldExtras\\": "src/"
