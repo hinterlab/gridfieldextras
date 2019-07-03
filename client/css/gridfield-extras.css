@@ -1,0 +1,107 @@
+/**
+ * GridFieldAdvancedFilterHeader
+ */
+
+div.TreeDropdownField .treedropdownfield-title{
+	color: #000;
+	font-weight: normal;
+}
+
+div.TreeDropdownField .treedropdownfield-title{
+	color: #000;
+	font-weight: normal;
+}
+
+
+.chzn-container .chzn-results .active-result{
+	color: #444444;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.chzn-container .chzn-results .active-result.highlighted{
+	color: #fff;
+}
+
+
+.chzn-container-single .chzn-single span{
+	font-weight: normal;
+}
+
+/**
+ * GridFieldUploadFile
+ */
+
+.ss-gridfield-upload-file {
+	margin-bottom: 8px !important;
+}
+
+.ss-gridfield-upload-file .TreeDropdownField{
+	border: none;
+	box-shadow: none;
+	float: left;
+	margin: 0 4px 0 0;
+	max-width: 416px;
+}
+
+.cms .ss-gridfield-upload-file a.ss-ui-button.ss-ui-action-constructive{
+	margin-top: 2px;
+}
+
+.ss-gridfield-upload-file .field.treedropdown.nolabel.no-change-track .middleColumn{
+	margin-left: 0;
+}
+/**********************************************************************/
+.btn__gridfieldupload {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    line-height: 1.85em;
+}
+
+.ss-gridfield-upload-file {
+    margin-bottom: 8px !important;white-space: nowrap;
+}
+
+.ss-gridfield-upload-file .field {
+    border: none;
+    box-shadow: none;
+    float: left;
+    margin: 0 4px 0 0;
+}
+
+.ss-gridfield-upload-file .form-group {
+    padding-bottom: 0;
+}
+
+.cms-edit-form:not(.AssetAdmin) .ss-gridfield-upload-file .form-group .form__field-holder {
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+.ss-gridfield-upload-file .form-group .Select-control {
+    border-radius: 4px 0 0 4px;
+}
+
+.cms-edit-form:not(.AssetAdmin) .ss-gridfield-upload-file .form-group {
+    display: inline-block;
+    margin: 0;
+    min-width: 250px;
+}
+
+.ss-gridfield-upload-file .form-group:after {
+    border:0;
+}
+
+.btn__addnewmulticlass {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    line-height: 1.85em;
+}
+
+.ss-gridfield-upload-file .chosen-container-active.chosen-with-drop .chosen-single,
+.ss-gridfield-upload-file .chosen-container-single .chosen-single  {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
