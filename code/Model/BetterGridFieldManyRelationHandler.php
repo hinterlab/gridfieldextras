@@ -5,27 +5,32 @@ namespace Internetrix\GridFieldExtras\Model;
 use GridFieldManyRelationHandler;
 use GridFieldManyRelationHandler_HasManyList;
 use GridFieldManyRelationHandler_ManyManyList;
+use SilverStripe\Core\ClassInfo;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\ORM\SS_List;
 use SilverStripe\ORM\RelationList;
 use InvalidArgumentException;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\ManyManyList;
-use Internetrix\GridFieldExtras\GridFieldDummyColumn;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 
 class BetterGridFieldManyRelationHandler extends GridFieldManyRelationHandler {
 	
 	protected $exclude;
 	
-	public function __construct($useToggle = true, $segement = 'before', $exclude = null) {
+	public function __construct($useToggle = true, $segement = 'before', $exclude = null)
+	{
 		parent::__construct($useToggle, $segement);
-		$this->cheatList 	 = new GridFieldManyRelationHandler_HasManyList;
+		$this->cheatList = new GridFieldManyRelationHandler_HasManyList;
 		$this->cheatManyList = new GridFieldManyRelationHandler_ManyManyList;
-		$this->exclude 		 = $exclude;
+		$this->exclude = $exclude;
 	}
 	
 
-	public function getManipulatedData(GridField $gridField, SS_List $list) {
+	public function getManipulatedData(GridField $gridField, SS_List $list)
+	{
 		if(!$list instanceof RelationList) {
 			user_error('GridFieldManyRelationHandler requires the GridField to have a RelationList. Got a ' . get_class($list) . ' instead.', E_USER_WARNING);
 		}
@@ -48,15 +53,13 @@ class BetterGridFieldManyRelationHandler extends GridFieldManyRelationHandler {
 		$list = new DataList($list->dataClass());
 		$list = $list->setDataQuery($query);
 		if($orgList instanceof ManyManyList) {
-			
-			//fixing duplicated objects which is caused by 'DISTINCT "Page_Items"."Sort"'
+
 			$list = new DataList($list->dataClass());
 			$query = $list->dataQuery();
-			
-			//hide drag and drop function
-			if(class_exists('GridFieldOrderableRows')){
-				$gridField->getConfig()->removeComponentsByType('GridFieldOrderableRows');
-			}
+
+			$gridField->getConfig()->removeComponentsByType(GridFieldOrderableRows::class);
+			$gridField->getConfig()->removeComponentsByType(GridFieldEditButton::class);
+			$gridField->getConfig()->removeComponentsByType(GridFieldDeleteAction::class);
 			// add a column for the filter controls
 			$gridField->getConfig()->addComponent(new GridFieldDummyColumn());
 			
