@@ -32,7 +32,8 @@
 		"silverstripe/framework" : "~4",
 		"unclecheese/dropzone" : "dev-features/4.0-support",
 		"simonwelsh/gridfieldrelationhandler" : "dev-ss4",
-		"symbiote/silverstripe-gridfieldextensions" : "^3.2"
+		"symbiote/silverstripe-gridfieldextensions" : "^3.2",
+		"undefinedoffset/sortablegridfield" : "2.0.8"
 	},
 	"extra" : {
 		"installer-name" : "gridfieldextras",
