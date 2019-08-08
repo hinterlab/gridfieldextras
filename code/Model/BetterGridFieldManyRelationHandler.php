@@ -66,7 +66,8 @@ class BetterGridFieldManyRelationHandler extends GridFieldManyRelationHandler
             $gridField->getConfig()->addComponent(new GridFieldDummyColumn());
 
             $joinTable = $this->cheatManyList->getJoinTable($orgList);
-            $baseClass = DataObject::getSchema()->tableName($list->dataClass());
+            $baseClass = DataObject::getSchema()->baseDataClass($list->dataClass());
+            $baseClass = DataObject::getSchema()->tableName($baseClass);
 
             $localKey = $this->cheatManyList->getLocalKey($orgList);
             $query->leftJoin($joinTable, "\"$joinTable\".\"$localKey\" = \"$baseClass\".\"ID\"");
