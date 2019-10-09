@@ -21,6 +21,7 @@ use SilverStripe\ORM\ArrayList;
 use SilverStripe\Forms\FieldGroup;
 use SilverStripe\Forms\GridField\GridField_FormAction;
 use SilverStripe\Forms\TextField;
+use SilverStripe\View\SSViewer;
 
 class GridFieldAdvancedFilterHeader extends GridFieldFilterHeader implements GridField_URLHandler {
 	
@@ -43,8 +44,13 @@ class GridFieldAdvancedFilterHeader extends GridFieldFilterHeader implements Gri
 	 * @var array
 	 */
 	protected $idToFieldMap = array();
-	
-	public function handleAction(GridField $gridField, $actionName, $arguments, $data) {
+
+	public function __construct($useLegacy = false, callable $updateSearchContext = null, callable $updateSearchForm = null)
+    {
+        parent::__construct(true, $updateSearchContext, $updateSearchForm);
+    }
+
+    public function handleAction(GridField $gridField, $actionName, $arguments, $data) {
 		if(!$this->checkDataType($gridField->getList())) return;
 	
 		$state = $gridField->State->GridFieldFilterHeader;
@@ -206,7 +212,7 @@ class GridFieldAdvancedFilterHeader extends GridFieldFilterHeader implements Gri
 					$field = new TextField('filter[' . $gridField->getName() . '][' . $columnField . ']', '', $value);
 				}
 	
-				$field->addExtraClass('ss-gridfield-sort');
+				$field->addExtraClass('ss-gridfield__sort-field');
 				$field->addExtraClass('no-change-track');
 	
 				$field->setAttribute('placeholder',
@@ -215,7 +221,7 @@ class GridFieldAdvancedFilterHeader extends GridFieldFilterHeader implements Gri
 				$fields->push($field);
 				$fields->push(
 						GridField_FormAction::create($gridField, 'reset', false, 'reset', null)
-						->addExtraClass('ss-gridfield-button-reset')
+                        ->addExtraClass('btn font-icon-cancel btn-secondary btn--no-text ss-gridfield-button-reset')
 						->setAttribute('title', _t('GridField.ResetFilter', "Reset"))
 						->setAttribute('id', 'action_reset_' . $gridField->getModelClass() . '_' . $columnField)
 				);
@@ -224,13 +230,13 @@ class GridFieldAdvancedFilterHeader extends GridFieldFilterHeader implements Gri
 			if($currentColumn == count($columns)){
 				$fields->push(
 						GridField_FormAction::create($gridField, 'filter', false, 'filter', null)
-						->addExtraClass('ss-gridfield-button-filter')
+                        ->addExtraClass('btn font-icon-search btn--no-text btn--icon-large grid-field__filter-submit ss-gridfield-button-filter')
 						->setAttribute('title', _t('GridField.Filter', "Filter"))
 						->setAttribute('id', 'action_filter_' . $gridField->getModelClass() . '_' . $columnField)
 				);
 				$fields->push(
 						GridField_FormAction::create($gridField, 'reset', false, 'reset', null)
-						->addExtraClass('ss-gridfield-button-close')
+                        ->addExtraClass('btn font-icon-cancel btn--no-text grid-field__filter-clear btn--icon-md ss-gridfield-button-close')
 						->setAttribute('title', _t('GridField.ResetFilter', "Reset"))
 						->setAttribute('id', 'action_reset_' . $gridField->getModelClass() . '_' . $columnField)
 				);
@@ -240,9 +246,10 @@ class GridFieldAdvancedFilterHeader extends GridFieldFilterHeader implements Gri
 	
 			$forTemplate->Fields->push($fields);
 		}
-	
+
+        $filterTemplates = SSViewer::get_templates_by_class($this, '_Row', GridFieldFilterHeader::class);
 		return array(
-			'header' => $forTemplate->renderWith('GridFieldFilterHeader_Row'),
+			'header' => $forTemplate->renderWith($filterTemplates),
 		);
 	}
 	
