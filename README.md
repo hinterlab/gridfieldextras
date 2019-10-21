@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* SilverStripe 3.1
+* SilverStripe ~4
 * Dropzone
 * Sortablegridfield
 
