@@ -6,10 +6,6 @@
 	"repositories" : [
 		{
 			"type" : "git",
-			"url" : "https://github.com/wilr/silverstripe-dropzone.git",
-			"name" : "unclecheese/dropzone"
-		},{
-			"type" : "git",
 			"url" : "git@gitlab.internetrix.net:silverstripe-modules/gridfieldrelationhandler.git",
 			"name" : "simonwelsh/gridfieldrelationhandler"
 		}
@@ -30,7 +26,7 @@
 	],
 	"require" : {
 		"silverstripe/framework" : "~4",
-		"unclecheese/dropzone" : "dev-features/4.0-support",
+		"unclecheese/dropzone" : "dev-master",
 		"simonwelsh/gridfieldrelationhandler" : "dev-ss4",
 		"symbiote/silverstripe-gridfieldextensions" : "^3.2",
 		"undefinedoffset/sortablegridfield" : "2.0.8"
