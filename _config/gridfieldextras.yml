@@ -1,11 +1,11 @@
 ---
 Name: gridfieldextras
 ---
-LeftAndMain:
+SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
-    - 'gridfieldextras/css/gridfield-extras.css'
-  extra_requirements_javascript:
-    - 'gridfieldextras/javascript/gridfieldleftandmainextras.js'
+    - 'internetrix/silverstripe-gridfieldextras:client/css/gridfield-extras.css'
+#  extra_requirements_javascript:
+#    - 'gridfieldextras/javascript/gridfieldleftandmainextras.js'
 Sheadawson\Linkable\Forms\LinkField:
   extensions:
     - 'Internetrix\GridFieldExtras\Extensions\LinkFieldExtension'

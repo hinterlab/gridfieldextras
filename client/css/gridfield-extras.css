@@ -105,3 +105,11 @@ div.TreeDropdownField .treedropdownfield-title{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+
+.grid-field__table .col-Reorder + th {
+    display: table-cell;
+}
+
+.ss-gridfield .table tbody tr .col-reorder + td {
+    display: table-cell;
+}
