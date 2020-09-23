@@ -2,7 +2,7 @@
 
 namespace Internetrix\GridFieldExtras\FormFields;
 
-use FileAttachmentField;
+use UncleCheese\Dropzone\FileAttachmentField;
 use SilverStripe\View\Requirements;
 use SilverStripe\Assets\Image;
 use SilverStripe\Core\Injector\Injector;
@@ -10,7 +10,7 @@ use SilverStripe\ORM\DataObjectInterface;
 use SilverStripe\Control\Controller;
 use SilverStripe\Assets\File;
 
-class EditableColumnFileAttachmentField extends FileAttachmentField{
+class EditableColumnFileAttachmentField extends FileAttachmentField {
 	
 	/**
 	 * Telling the field whether to save into a has_one relationship or into the has_one inside another relationship
